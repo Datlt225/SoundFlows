@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/drawable/custom_backgound_banner.xml" value="0.403125" />
         <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/fragment_home_page.xml" value="0.18617021276595744" />
+        <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/custom_banner.xml" value="0.25" />
+        <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/fragment_banner.xml" value="0.33" />
+        <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/fragment_home_page.xml" value="0.33" />
         <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/fragment_profile.xml" value="0.18617021276595744" />
         <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/fragment_searching.xml" value="0.18617021276595744" />
       </map>

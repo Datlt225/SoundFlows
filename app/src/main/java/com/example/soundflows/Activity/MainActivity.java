@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPagerAdapter.addFragment(new Fragment_Home_Page(), "HomePage");
         mainViewPagerAdapter.addFragment(new Fragment_Searching(), "Searching");
-        mainViewPagerAdapter.addFragment(new Fragment_Profile(), "Profile");
+        mainViewPagerAdapter.addFragment(new Fragment_Profile(), "Library");
         viewPager.setAdapter(mainViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.iconhome);
         tabLayout.getTabAt(1).setIcon(R.drawable.iconsearch);
-        tabLayout.getTabAt(2).setIcon(R.drawable.iconprofile);
+        tabLayout.getTabAt(2).setIcon(R.drawable.iconlibrary);
     }
 
 

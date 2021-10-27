@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/imageBackgroundBanner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:background="@drawable/custom_backgound_banner" />-->
+
+    <RelativeLayout
+        android:id="@+id/relative1"
+        android:layout_alignBottom="@id/imageBackgroundBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageviewBanner"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="2dp" />
+        <TextView
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:text="uwu"
+            android:textSize="17dp"
+            android:id="@+id/textviewTitleBanner"
+            android:layout_toRightOf="@id/imageviewBanner"
+            android:layout_alignTop="@id/imageviewBanner"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:layout_marginTop="7dp"
+            android:layout_toRightOf="@id/imageviewBanner"
+            android:layout_below="@id/textviewTitleBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textviewContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:maxLines="2"
+                android:text="Đây là một bài hát mới hi!"
+                android:textColor="#ffffff"
+                android:textSize="13dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
