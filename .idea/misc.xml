@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/activity_main.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/custom_album.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/custom_banner.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/custom_song.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/fragment_album.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/fragment_banner.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/fragment_home_page.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/fragment_profile.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/fragment_searching.xml" value="0.18819655521783182" />
+        <entry key="..\:/21-22-1/DACN/SoundFlows/app/src/main/res/layout/fragment_song.xml" value="0.18819655521783182" />
         <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/drawable/custom_backgound_banner.xml" value="0.403125" />
         <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Final-21-22-1/SoundFlows/app/src/main/res/layout/custom_banner.xml" value="0.25" />
