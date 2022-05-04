@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SoundFlows</string>
+    <string name="no_song">Không có dữ liệu bài hát</string>
+    <string name="search">Search</string>
+    <string name="name_song">Name song</string>
+    <string name="singer">Singer</string>
 </resources>

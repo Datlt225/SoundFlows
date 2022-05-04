@@ -7,7 +7,9 @@ import com.example.soundflows.Model.Song;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface Dataservice {
 
@@ -19,4 +21,7 @@ public interface Dataservice {
 
     @GET("song")
     Call<List<Song>> GetDataSong();
+
+    @POST("searching")
+    Call<List<Song>> GetDataSearching(@Body String word);
 }

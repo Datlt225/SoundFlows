@@ -55,6 +55,7 @@ public class Fragment_Song extends Fragment {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerViewSong.setLayoutManager(linearLayoutManager);
+                recyclerViewSong.hasFixedSize();
                 recyclerViewSong.setAdapter(songAdapter);
             }
 
