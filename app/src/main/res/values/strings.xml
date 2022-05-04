@@ -4,4 +4,10 @@
     <string name="search">Search</string>
     <string name="name_song">Name song</string>
     <string name="singer">Singer</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register">Đăng ký</string>
+    <string name="enter_your_pass">Enter your password</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="enter_your_name">Enter your name</string>
 </resources>
