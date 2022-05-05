@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundFlows">
         <activity
+            android:name=".Activity.PlaylistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PlaySongActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.RegisterActivity"
             android:exported="false" />
         <activity
