@@ -32,16 +32,16 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:text="uwu"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:id="@+id/textviewTitleBanner"
-            android:layout_toRightOf="@id/imageviewBanner"
+            android:layout_toEndOf="@id/imageviewBanner"
             android:layout_alignTop="@id/imageviewBanner"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RelativeLayout
             android:layout_marginTop="7dp"
-            android:layout_toRightOf="@id/imageviewBanner"
+            android:layout_toEndOf="@id/imageviewBanner"
             android:layout_below="@id/textviewTitleBanner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -50,11 +50,11 @@
                 android:id="@+id/textviewContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
+                android:layout_marginEnd="40dp"
                 android:maxLines="2"
                 android:text="Đây là một bài hát mới hi!"
                 android:textColor="#ffffff"
-                android:textSize="13dp" />
+                android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
 

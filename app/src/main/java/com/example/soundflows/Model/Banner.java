@@ -3,73 +3,75 @@ package com.example.soundflows.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Banner {
+import java.io.Serializable;
 
-@SerializedName("ID_ads")
-@Expose
-private String iDAds;
-@SerializedName("Img_ads")
-@Expose
-private String imgAds;
-@SerializedName("Content")
-@Expose
-private String content;
-@SerializedName("ID_song")
-@Expose
-private String iDSong;
-@SerializedName("Name_song")
-@Expose
-private String nameSong;
-@SerializedName("Img_song")
-@Expose
-private String imgSong;
+public class Banner implements Serializable {
 
-public String getIDAds() {
-return iDAds;
-}
+    @SerializedName("ID_ads")
+    @Expose
+    private String iDAds;
+    @SerializedName("Img_ads")
+    @Expose
+    private String imgAds;
+    @SerializedName("Content")
+    @Expose
+    private String content;
+    @SerializedName("ID_song")
+    @Expose
+    private String iDSong;
+    @SerializedName("Name_song")
+    @Expose
+    private String nameSong;
+    @SerializedName("Img_song")
+    @Expose
+    private String imgSong;
 
-public void setIDAds(String iDAds) {
-this.iDAds = iDAds;
-}
+    public String getIDAds() {
+    return iDAds;
+    }
 
-public String getImgAds() {
-return imgAds;
-}
+    public void setIDAds(String iDAds) {
+    this.iDAds = iDAds;
+    }
 
-public void setImgAds(String imgAds) {
-this.imgAds = imgAds;
-}
+    public String getImgAds() {
+    return imgAds;
+    }
 
-public String getContent() {
-return content;
-}
+    public void setImgAds(String imgAds) {
+    this.imgAds = imgAds;
+    }
 
-public void setContent(String content) {
-this.content = content;
-}
+    public String getContent() {
+    return content;
+    }
 
-public String getIDSong() {
-return iDSong;
-}
+    public void setContent(String content) {
+    this.content = content;
+    }
 
-public void setIDSong(String iDSong) {
-this.iDSong = iDSong;
-}
+    public String getIDSong() {
+    return iDSong;
+    }
 
-public String getNameSong() {
-return nameSong;
-}
+    public void setIDSong(String iDSong) {
+    this.iDSong = iDSong;
+    }
 
-public void setNameSong(String nameSong) {
-this.nameSong = nameSong;
-}
+    public String getNameSong() {
+    return nameSong;
+    }
 
-public String getImgSong() {
-return imgSong;
-}
+    public void setNameSong(String nameSong) {
+    this.nameSong = nameSong;
+    }
 
-public void setImgSong(String imgSong) {
-this.imgSong = imgSong;
-}
+    public String getImgSong() {
+    return imgSong;
+    }
+
+    public void setImgSong(String imgSong) {
+    this.imgSong = imgSong;
+    }
 
 }

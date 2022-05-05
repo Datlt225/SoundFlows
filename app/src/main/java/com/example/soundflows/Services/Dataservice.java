@@ -22,6 +22,12 @@ public interface Dataservice {
     @GET("song")
     Call<List<Song>> GetDataSong();
 
+    @POST("playlist_banner")
+    Call<List<Song>> GetPlayListBanner(@Body String ID_ads);
+
+    @POST("playlist_album")
+    Call<List<Song>> GetPlayListAlbum(@Body String ID_album);
+
     @POST("searching")
     Call<List<Song>> GetDataSearching(@Body String word);
 }

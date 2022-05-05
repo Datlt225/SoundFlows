@@ -1,6 +1,7 @@
 package com.example.soundflows.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.example.soundflows.Activity.PlaylistActivity;
 import com.example.soundflows.Model.Banner;
 import com.example.soundflows.R;
+import com.example.soundflows.constant.UserConstant;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,13 +31,16 @@ public class BannerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return arrayListbaner.size();
-    } // trả về tất cả các page có trong viewpager
+        if (arrayListbaner != null)
+            return arrayListbaner.size();
+
+        return 0;
+    }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
-    } // trả về view tuỳ theo object định hình
+    }
 
     @NonNull
     @Override
@@ -52,7 +58,17 @@ public class BannerAdapter extends PagerAdapter {
         txtTitleBanner.setText(arrayListbaner.get(position).getNameSong());
         txtContent.setText(arrayListbaner.get(position).getContent());
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlaylistActivity.class);
+                intent.putExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST, arrayListbaner.get(position));
+                context.startActivity(intent);
+            }
+        });
+
         container.addView(view);
+
         return view;
     }
 

@@ -3,10 +3,12 @@ package com.example.soundflows.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Album {
+import java.io.Serializable;
+
+public class Album implements Serializable {
     @SerializedName("ID_album")
     @Expose
-    private Integer iDAlbum;
+    private String iDAlbum;
     @SerializedName("Img_album")
     @Expose
     private String imgAlbum;
@@ -14,11 +16,11 @@ public class Album {
     @Expose
     private String nameAlbum;
 
-    public Integer getIDAlbum() {
+    public String getIDAlbum() {
         return iDAlbum;
     }
 
-    public void setIDAlbum(Integer iDAlbum) {
+    public void setIDAlbum(String iDAlbum) {
         this.iDAlbum = iDAlbum;
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
+public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Song> songArrayList;
 
-    public SongAdapter(Context context, ArrayList<Song> songArrayList) {
+    public PlayListAdapter(Context context, ArrayList<Song> songArrayList) {
         this.context = context;
         this.songArrayList = songArrayList;
     }
@@ -28,37 +26,36 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.row_song, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.row_playlist, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Song song = songArrayList.get(position);
-
         holder.tvNameSong.setText(song.getNameSong());
         holder.tvSinger.setText(song.getSinger());
-        Picasso.get().load(song.getImgSong()).into(holder.ivSong);
+        holder.tvIndex.setText(position + 1 + "");
     }
 
     @Override
     public int getItemCount() {
-//        if (songArrayList != null)
+        if (songArrayList != null)
             return songArrayList.size();
-//        return 0;
+
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNameSong, tvSinger;
-        ImageView ivSong;
+        TextView tvIndex, tvNameSong, tvSinger;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvNameSong = itemView.findViewById(R.id.tv_song_name_song);
-            tvSinger = itemView.findViewById(R.id.tv_song_singer);
-            ivSong = itemView.findViewById(R.id.im_song);
+            tvIndex = itemView.findViewById(R.id.tv_playlist_index);
+            tvNameSong = itemView.findViewById(R.id.tv_playlist_name_song);
+            tvSinger = itemView.findViewById(R.id.tv_playlist_singer);
         }
     }
 }

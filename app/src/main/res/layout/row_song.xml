@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/im_song"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="3dp"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/tv_song_name_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/im_song"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="#FDFDFD"
+        android:textSize="18sp"
+        android:text="Tên bài hát"/>
+
+    <TextView
+        android:id="@+id/tv_song_singer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_song_name_song"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@id/im_song"
+        android:maxLines="1"
+        android:text="Tên ca sĩ"
+        android:textSize="18sp"
+        android:textColor="#D6D6D6"/>
+</RelativeLayout>

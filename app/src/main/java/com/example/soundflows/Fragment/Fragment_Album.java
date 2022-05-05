@@ -1,6 +1,7 @@
 package com.example.soundflows.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class Fragment_Album extends Fragment {
 
             @Override
             public void onFailure(Call<List<Album>> call, Throwable t) {
-
+                Log.e("alaba", t.getMessage());
             }
         });
     }
