@@ -17,11 +17,14 @@ public class ViewPagerPlaylistSong extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return fragmentArrayList.get(position);
     }
 
     @Override
     public int getCount() {
+        if (fragmentArrayList.size() > 0)
+            return fragmentArrayList.size();
+
         return 0;
     }
 

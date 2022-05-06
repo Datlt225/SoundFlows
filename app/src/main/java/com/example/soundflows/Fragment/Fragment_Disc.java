@@ -30,12 +30,12 @@ public class Fragment_Disc extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_disc, container, false);
         imageView = view.findViewById(R.id.im_image_song);
-        objectAnimator = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);
-        objectAnimator.setDuration(10000);
-        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
-        objectAnimator.setInterpolator(new LinearInterpolator());
-        objectAnimator.start();
+//        objectAnimator = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);
+//        objectAnimator.setDuration(10000);
+//        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+//        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
+//        objectAnimator.setInterpolator(new LinearInterpolator());
+//        objectAnimator.start();
         return view;
     }
 

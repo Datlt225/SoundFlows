@@ -25,9 +25,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Fragment_Song extends Fragment {
-    private View view;
-    private RecyclerView recyclerViewSong;
-    private SongAdapter songAdapter;
+
+    View view;
+    RecyclerView recyclerView;
+    SongAdapter songAdapter;
 
     @Nullable
     @Override
@@ -35,7 +36,7 @@ public class Fragment_Song extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_song, container, false);
-        recyclerViewSong = view.findViewById(R.id.recyclerview_home_song);
+        recyclerView =view.findViewById(R.id.recyclerview_song);
         GetData();
         return view;
     }
@@ -49,14 +50,13 @@ public class Fragment_Song extends Fragment {
                 ArrayList<Song> songArrayList = (ArrayList<Song>) response.body();
 
                 for (Song songcc : songArrayList)
-                    System.out.println("Link ko che:" + songcc.getLinkSong());
+                    System.out.println("Link ne" + songcc.getLinkSong());
 
                 songAdapter = new SongAdapter(getActivity(), songArrayList);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                recyclerViewSong.setLayoutManager(linearLayoutManager);
-                recyclerViewSong.hasFixedSize();
-                recyclerViewSong.setAdapter(songAdapter);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(songAdapter);
             }
 
             @Override
@@ -65,4 +65,5 @@ public class Fragment_Song extends Fragment {
             }
         });
     }
+
 }

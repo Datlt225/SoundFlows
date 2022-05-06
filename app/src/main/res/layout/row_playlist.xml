@@ -1,45 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:elevation="5dp">
 
     <RelativeLayout
+        android:padding="10dp"
+        android:background="@drawable/custom_background_banner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_playlist_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="1"
-            android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/tv_playlist_name_song"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="250dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:layout_toRightOf="@id/tv_playlist_index"
-            android:textColor="#030303"
-            android:text="Ten ca khuc"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/tv_playlist_singer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_playlist_name_song"
-            android:layout_toEndOf="@id/tv_playlist_index"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="#979797"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="ca si"/>
+            android:text="1"
+            android:id="@+id/textviewListIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/textviewNameSong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textviewListIndex"
+            android:ellipsize="end"
+            android:maxWidth="250dp"
+            android:singleLine="true"
+            android:text="Tên ca khúc"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textviewSingerName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textviewNameSong"
+            android:layout_toRightOf="@id/textviewListIndex"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="ca sĩ"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_margin="15dp"
+            android:src="@drawable/iconlove"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/imgviewLikedPlaylist"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -22,11 +22,8 @@ import com.example.soundflows.Model.Album;
 import com.example.soundflows.Model.Banner;
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
-import com.example.soundflows.Services.APIRetrofitClient;
 import com.example.soundflows.Services.APIService;
 import com.example.soundflows.Services.Dataservice;
-import com.example.soundflows.constant.UserConstant;
-import com.example.soundflows.databinding.ActivityPlaylistBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -42,25 +39,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlaylistActivity extends AppCompatActivity {
-    private ActivityPlaylistBinding binding;
-    private Banner banner;
-    private Album album;
-    private ArrayList<Song> songArrayList;
-    private PlayListAdapter playListAdapter;
+
+    CoordinatorLayout coordinatorLayout;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    Toolbar toolbar;
+    RecyclerView recyclerViewPlaylist;
+    FloatingActionButton floatingActionButton;
+    Banner banner;
+    Album album;
+    ImageView imageViewPlaylist;
+    ArrayList<Song> arraySong;
+    PlayListAdapter playlistAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPlaylistBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        setContentView(R.layout.activity_playlist);
         DataIntent();
+        mapping();
         init();
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if (banner != null && !banner.getNameSong().equals("")) {
+        if (banner != null && !banner.getNameSong().equals("")){
             setValueInView(banner.getNameSong(), banner.getImgSong());
             GetDataBanner(banner.getIDAds());
         }
@@ -71,36 +73,21 @@ public class PlaylistActivity extends AppCompatActivity {
         }
     }
 
-    private void init() {
-        setSupportActionBar(binding.toolbarPlaylist);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        binding.faButton.setEnabled(false);
-
-        binding.toolbarPlaylist.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        binding.collapsingToolbar.setExpandedTitleColor(Color.WHITE);
-        binding.collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
-    }
-
+    /**
+     * Lấy dữ liệu album về
+     * @param idAlbum
+     */
     private void GetDataAlbum(String idAlbum) {
         Dataservice dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetPlayListAlbum(idAlbum);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                songArrayList = (ArrayList<Song>) response.body();
-                playListAdapter = new PlayListAdapter(PlaylistActivity.this, songArrayList);
-
-                binding.rvPlaylist.setLayoutManager(
-                        new LinearLayoutManager(PlaylistActivity.this));
-
-                binding.rvPlaylist.setAdapter(playListAdapter);
+                arraySong = (ArrayList<Song>) response.body();
+                playlistAdapter = new PlayListAdapter(PlaylistActivity.this, arraySong);
+                recyclerViewPlaylist.setLayoutManager(new
+                        LinearLayoutManager(PlaylistActivity.this));
+                recyclerViewPlaylist.setAdapter(playlistAdapter);
                 eventClick();
             }
 
@@ -111,19 +98,21 @@ public class PlaylistActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Lấy dữ liệu của phần quản cáo về
+     * @param idAds
+     */
     private void GetDataBanner(String idAds) {
         Dataservice dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetPlayListBanner(idAds);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                songArrayList = (ArrayList<Song>) response.body();
-                playListAdapter = new PlayListAdapter(PlaylistActivity.this, songArrayList);
-
-                binding.rvPlaylist.setLayoutManager(
-                        new LinearLayoutManager(PlaylistActivity.this));
-
-                binding.rvPlaylist.setAdapter(playListAdapter);
+                arraySong = (ArrayList<Song>) response.body();
+                playlistAdapter = new PlayListAdapter(PlaylistActivity.this, arraySong);
+                recyclerViewPlaylist.setLayoutManager(new
+                        LinearLayoutManager(PlaylistActivity.this));
+                recyclerViewPlaylist.setAdapter(playlistAdapter);
                 eventClick();
             }
 
@@ -134,49 +123,81 @@ public class PlaylistActivity extends AppCompatActivity {
         });
     }
 
-    private void eventClick() {
-        binding.faButton.setEnabled(true);
-        binding.faButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(
-                        PlaylistActivity.this, PlaySongActivity.class);
-
-                intent.putExtra(UserConstant.KEY_ARRAY_SONGS, songArrayList);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void setValueInView(String nameSong, String imgSong) {
-
-        binding.collapsingToolbar.setTitle(nameSong);
-
+    /**
+     *  gán phương thức lên phần collapsing
+     * @param name
+     * @param img
+     */
+    private void setValueInView(String name, String img) {
+        collapsingToolbarLayout.setTitle(name);
         try {
-            URL url = new URL(imgSong);
+            URL url = new URL(img);
+
+            // dùng bitmap để gán dữ liệu lên
             Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-            binding.collapsingToolbar.setBackground(bitmapDrawable);
+            collapsingToolbarLayout.setBackground(bitmapDrawable);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Picasso.get().load(imgSong).into(binding.ivPlaylistList);
+
+        Picasso.get().load(img).into(imageViewPlaylist);
+    }
+
+    /**
+     * set tool bar cho màn hình playlist
+     */
+    private void init() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
+        floatingActionButton.setEnabled(false);
+    }
+
+    private void mapping() {
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        collapsingToolbarLayout = findViewById(R.id.collapsingtoolbar);
+        toolbar = findViewById(R.id.toolbarPlaylist);
+        recyclerViewPlaylist = findViewById(R.id.recyclerviewPlaylist);
+        floatingActionButton = findViewById(R.id.floatingactionbtn);
+        imageViewPlaylist = findViewById(R.id.imgPlaylist);
     }
 
     private void DataIntent() {
         Intent intent = getIntent();
-
-        if (intent != null) {
-            if (intent.hasExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST)) {
-                banner = (Banner) intent.getSerializableExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST);
+        if ( intent != null) {
+            if (intent.hasExtra("banner")) {
+                banner = (Banner) intent.getSerializableExtra("banner");
+                Toast.makeText(this, banner.getNameSong(), Toast.LENGTH_SHORT).show();
             }
 
-            if (intent.hasExtra(UserConstant.KEY_PUT_ALBUM_PLAYLIST)) {
-                album = (Album) intent.getSerializableExtra(UserConstant.KEY_PUT_ALBUM_PLAYLIST);
+            if (intent.hasExtra("album")) {
+                album = (Album) intent.getSerializableExtra("album");
+                Toast.makeText(this, album.getNameAlbum(), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void eventClick() {
+        floatingActionButton.setEnabled(true);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaylistActivity.this,
+                        PlaySongActivity.class);
+                intent.putExtra("songlist", arraySong);
+                startActivity(intent);
+            }
+        });
     }
 }

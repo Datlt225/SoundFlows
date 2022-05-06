@@ -10,4 +10,13 @@
     <string name="enter_your_pass">Enter your password</string>
     <string name="confirm_your_password">Confirm your password</string>
     <string name="enter_your_name">Enter your name</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="chk_remember_me_txt">Remember me</string>
+    <string name="registration">Đăng ký</string>
+    <string name="or">Hoặc đăng nhập bằng</string>
+    <string name="login_with_google">Đăng nhập bằng Google</string>
+    <string name="login_with_facebook">Đăng nhập bằng Facebook</string>
+    <string name="logout">Logout</string>
+    <string name="confirm_logout">Do you want to logout?</string>
 </resources>

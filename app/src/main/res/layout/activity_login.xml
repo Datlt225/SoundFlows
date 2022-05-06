@@ -1,78 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.LoginActivity"
     android:background="@drawable/custom_background_banner"
+    android:focusable="true"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/iv_login_logo"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="5dp"
+        android:layout_marginStart="100dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo" />
 
+    <!--    Nhập email-->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_login_email"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:hint="@string/enter_your_email"
-            android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_user_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:hint="@string/enter_email" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!--    Nhập mật khẩu-->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_login_password"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:hint="@string/enter_your_email"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_pass_word"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:inputType="textPassword"
-            android:textSize="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:hint="@string/enter_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!--    Checkbox ghi nhớ đăng nhập-->
+    <CheckBox
+        android:id="@+id/activity_login_chk_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:text="@string/chk_remember_me_txt"
+        android:checked="false"/>
+
+    <!--    Các cái nút-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:weightSum="2">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login_login"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_button"
+            android:id="@+id/btn_login"
+            android:background="@drawable/custom_button_login"
             android:text="@string/login"
-            android:backgroundTint="#84C686"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login_register"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_button"
-            android:text="@string/register"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
+            android:id="@+id/btn_register"
+            android:text="@string/registration"
+            android:background="@drawable/custom_button_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/or"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
+    <!--    cách đăng nhập khác-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <!--        bằng google-->
+        <LinearLayout
+            android:id="@+id/ll_login_by_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@drawable/googleplus"
+                android:scaleType="fitCenter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_with_google"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <!--        bằng facebook-->
+        <LinearLayout
+            android:id="@+id/ll_login_by_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@drawable/facebookicon"
+                android:scaleType="fitCenter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_with_facebook"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

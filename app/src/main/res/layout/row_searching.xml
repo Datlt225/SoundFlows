@@ -3,42 +3,49 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    
+
     <ImageView
         android:scaleType="fitXY"
         android:layout_margin="3dp"
-        android:id="@+id/iv_searching_song"
+        android:id="@+id/imgviewSearching"
         android:layout_width="80dp"
         android:layout_height="80dp" />
 
     <TextView
-        android:id="@+id/tv_searching_name_song"
+        android:id="@+id/textviewSearchingNameSong"
         android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="@string/name_song"
-        android:layout_toEndOf="@+id/iv_searching_song"
+        android:textColor="@color/white"
+        android:text="Ten bai hat"
+        android:layout_toRightOf="@id/imgviewSearching"
         android:layout_marginTop="7dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:maxWidth="250dp"
-        android:maxLines="1"
         android:singleLine="true"
         android:ellipsize="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/tv_searching_singer"
+        android:id="@+id/textviewSearchingSinger"
         android:textSize="18sp"
-        android:textColor="#635555"
-        android:text="@string/singer"
-        android:layout_toEndOf="@+id/iv_searching_song"
-        android:layout_below="@+id/tv_searching_name_song"
+        android:textColor="@color/white"
+        android:text="ca si"
+        android:layout_below="@id/textviewSearchingNameSong"
+        android:layout_toRightOf="@id/imgviewSearching"
         android:layout_marginTop="7dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:maxWidth="250dp"
-        android:maxLines="1"
         android:singleLine="true"
         android:ellipsize="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/iconlove"
+        android:id="@+id/imgviewSearchingLiked"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 </RelativeLayout>

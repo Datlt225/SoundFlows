@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#6200EE</color>
+    <color name="mauxanh">#FF3B554A</color>
+    <color name="background">#4B494C</color>
 </resources>

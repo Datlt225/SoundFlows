@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/custom_background_banner">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarLayoutSearching"
+        android:background="#868998"
+        android:outlineAmbientShadowColor="@color/white"
+        android:id="@+id/appbarlayoutSearching"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarSearching"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="?attr/actionBarSize">
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/appbarLayoutSearching"
-        android:id="@+id/rvSearching"
+        android:layout_below="@id/appbarlayoutSearching"
+        android:id="@+id/recyclerviewSearching"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:textColor="#f20"
         android:visibility="gone"
+        android:textColor="#f20"
         android:gravity="center"
-        android:text="@string/no_song"
-        android:id="@+id/tvNoSong"
-        android:textSize="35sp"
+        android:text="Không có dữ liệu bài hát"
+        android:id="@+id/textviewNotFound"
+        android:textSize="30sp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </RelativeLayout>

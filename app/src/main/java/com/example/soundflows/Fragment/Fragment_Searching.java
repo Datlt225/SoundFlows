@@ -34,22 +34,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Fragment_Searching extends Fragment {
-    private RecyclerView recyclerViewSearching;
-    private TextView tvNoData;
-    private SearchingAdapter searchingAdapter;
+    View view;
+    Toolbar toolbar;
+    RecyclerView recyclerViewSearching;
+    TextView txtNotFound;
+
+    SearchingAdapter searchingAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_searching, container, false);
-        Toolbar toolbar = view.findViewById(R.id.toolbarSearching);
-        recyclerViewSearching = view.findViewById(R.id.rvSearching);
-        tvNoData = view.findViewById(R.id.tvNoSong);
+        view = inflater.inflate(R.layout.fragment_searching, container, false);
+        toolbar = view.findViewById(R.id.toolbarSearching);
+        recyclerViewSearching = view.findViewById(R.id.recyclerviewSearching);
+        txtNotFound = view.findViewById(R.id.textviewNotFound);
 
+        //định dạng lại activity
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle("Searching");
         setHasOptionsMenu(true);
         return view;
     }
@@ -62,21 +66,33 @@ public class Fragment_Searching extends Fragment {
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            /**
+             * tìm kiếm khi đã nhập xong
+             * @param query
+             * @return
+             */
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                SearchingKeySong(s);
+            public boolean onQueryTextSubmit(String query) {
+                searchingWord(query);
                 return true;
             }
 
+            /**
+             * Tím kiếm khi text thay đổi
+             * @param newText
+             * @return
+             */
             @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
+            public boolean onQueryTextChange(String newText) {
+//                searchingWord(newText);
+                return true;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void SearchingKeySong(String word) {
+    private void searchingWord (String word) {
         Dataservice dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetDataSearching(word);
         callback.enqueue(new Callback<List<Song>>() {
@@ -84,23 +100,19 @@ public class Fragment_Searching extends Fragment {
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 try {
                     ArrayList<Song> songArrayList = (ArrayList<Song>) response.body();
-
                     if (songArrayList.size() > 0) {
                         searchingAdapter = new SearchingAdapter(getActivity(), songArrayList);
-                        LinearLayoutManager linearLayoutManager =
-                                new LinearLayoutManager(getActivity());
-
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                         recyclerViewSearching.setLayoutManager(linearLayoutManager);
                         recyclerViewSearching.setAdapter(searchingAdapter);
-                        tvNoData.setVisibility(View.GONE);
+                        txtNotFound.setVisibility(View.GONE);
                         recyclerViewSearching.setVisibility(View.VISIBLE);
-
                     } else {
                         recyclerViewSearching.setVisibility(View.GONE);
-                        tvNoData.setVisibility(View.VISIBLE);
+                        txtNotFound.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e){
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 

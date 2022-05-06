@@ -2,7 +2,10 @@ package com.example.soundflows.Services;
 
 import com.example.soundflows.Model.Album;
 import com.example.soundflows.Model.Banner;
+import com.example.soundflows.Model.LoginResponse;
+import com.example.soundflows.Model.RegisterResponse;
 import com.example.soundflows.Model.Song;
+import com.example.soundflows.Model.Users;
 
 import java.util.List;
 
@@ -30,4 +33,10 @@ public interface Dataservice {
 
     @POST("searching")
     Call<List<Song>> GetDataSearching(@Body String word);
+
+    @POST("/login")
+    Call<LoginResponse> Login(@Body Users data);
+
+    @POST("register")
+    Call<RegisterResponse> Register(@Body Users user);
 }

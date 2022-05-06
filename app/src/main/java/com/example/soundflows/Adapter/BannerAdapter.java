@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -14,33 +15,30 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.soundflows.Activity.PlaylistActivity;
 import com.example.soundflows.Model.Banner;
 import com.example.soundflows.R;
-import com.example.soundflows.constant.UserConstant;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BannerAdapter extends PagerAdapter {
 
     Context context;
-    ArrayList<Banner> arrayListbaner;
+    ArrayList<Banner> arrayListBanner;
 
-    public BannerAdapter(Context context, ArrayList<Banner> arrayListbaner) {
+    public BannerAdapter(Context context, ArrayList<Banner> arrayListBanner) {
         this.context = context;
-        this.arrayListbaner = arrayListbaner;
+        this.arrayListBanner = arrayListBanner;
     }
 
     @Override
     public int getCount() {
-        if (arrayListbaner != null)
-            return arrayListbaner.size();
-
-        return 0;
-    }
+        return arrayListBanner.size();
+    } // trả về tất cả các page có trong viewpager
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
-    }
+    } // trả về view tuỳ theo object định hình
 
     @NonNull
     @Override
@@ -53,22 +51,20 @@ public class BannerAdapter extends PagerAdapter {
         TextView txtTitleBanner = view.findViewById(R.id.textviewTitleBanner);
         TextView txtContent = view.findViewById(R.id.textviewContent);
 
-        Picasso.get().load(arrayListbaner.get(position).getImgAds()).into(imgbackgroundBanner);
-        Picasso.get().load(arrayListbaner.get(position).getImgSong()).into(imgsongbanner);
-        txtTitleBanner.setText(arrayListbaner.get(position).getNameSong());
-        txtContent.setText(arrayListbaner.get(position).getContent());
+        Picasso.get().load(arrayListBanner.get(position).getImgAds()).into(imgbackgroundBanner);
+        Picasso.get().load(arrayListBanner.get(position).getImgSong()).into(imgsongbanner);
+        txtTitleBanner.setText(arrayListBanner.get(position).getNameSong());
+        txtContent.setText(arrayListBanner.get(position).getContent());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PlaylistActivity.class);
-                intent.putExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST, arrayListbaner.get(position));
+                intent.putExtra("banner", arrayListBanner.get(position));
                 context.startActivity(intent);
             }
         });
-
         container.addView(view);
-
         return view;
     }
 
