@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.soundflows.Activity.PlaylistActivity;
 import com.example.soundflows.Model.Banner;
 import com.example.soundflows.R;
+import com.example.soundflows.constant.UserConstant;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -33,12 +34,12 @@ public class BannerAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         return arrayListBanner.size();
-    } // trả về tất cả các page có trong viewpager
+    }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
-    } // trả về view tuỳ theo object định hình
+    }
 
     @NonNull
     @Override
@@ -60,7 +61,7 @@ public class BannerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PlaylistActivity.class);
-                intent.putExtra("banner", arrayListBanner.get(position));
+                intent.putExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST, arrayListBanner.get(position));
                 context.startActivity(intent);
             }
         });

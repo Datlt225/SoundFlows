@@ -39,9 +39,9 @@ public class Fragment_Profile extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         toolbar = view.findViewById(R.id.toolbar_profile);
 
-//        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-//        toolbar.setTitle("Hi " + user.getName());
-//        setHasOptionsMenu(true);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle("Hi " + users.getName());
+        setHasOptionsMenu(true);
         return view;
     }
 

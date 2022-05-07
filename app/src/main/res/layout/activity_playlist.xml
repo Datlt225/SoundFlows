@@ -25,11 +25,6 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <!--            <View-->
-            <!--                android:background="@drawable/custom_backgound_banner"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent" />-->
-
             <androidx.appcompat.widget.Toolbar
                 app:popupTheme="@style/Theme.AppCompat.Light"
                 app:layout_collapseMode="pin"
@@ -57,9 +52,9 @@
         app:layout_anchor="@id/appbarlayout"
         app:layout_anchorGravity="bottom|center"
         android:id="@+id/floatingactionbtn"
-        android:scaleType="fitXY"
-        android:src="@drawable/logo"
-        android:backgroundTint="#a845"/>
+        android:scaleType="center"
+        android:src="@drawable/ic_play_playlist"
+        android:backgroundTint="#2C1E1E"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_marginTop="30dp"

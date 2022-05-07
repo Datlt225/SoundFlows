@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.soundflows.Activity.PlaylistActivity;
 import com.example.soundflows.Model.Album;
 import com.example.soundflows.R;
+import com.example.soundflows.constant.UserConstant;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, PlaylistActivity.class);
-                    intent.putExtra("album",mangAlbum.get(getAdapterPosition()));
+                    intent.putExtra(UserConstant.KEY_PUT_ALBUM_PLAYLIST,mangAlbum.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }
             });

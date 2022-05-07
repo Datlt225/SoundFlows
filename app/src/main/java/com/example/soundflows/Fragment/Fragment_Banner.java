@@ -20,6 +20,7 @@ import com.example.soundflows.Services.Dataservice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
@@ -51,36 +52,41 @@ public class Fragment_Banner extends Fragment {
     }
 
     private void GetData() {
-        Dataservice dataservice = APIService.getService();
-        Call<List<Banner>> callback = dataservice.GetDataBanner();
-        callback.enqueue(new Callback<List<Banner>>() {
-            @Override
-            public void onResponse(Call<List<Banner>> call, Response<List<Banner>> response) {
-                ArrayList<Banner> banners = (ArrayList<Banner>) response.body();
-                bannerAdapter = new BannerAdapter(getActivity(), banners);
-                viewPager.setAdapter(bannerAdapter);
-                circleIndicator.setViewPager(viewPager);
-                handler = new Handler();
-                runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        currentItem = viewPager.getCurrentItem();
-                        currentItem++;
-                        if (currentItem >= viewPager.getAdapter().getCount()) {
-                            currentItem = 0;
+        try {
+            Dataservice dataservice = APIService.getService();
+            Call<List<Banner>> callback = dataservice.GetDataBanner();
+            callback.enqueue(new Callback<List<Banner>>() {
+                @Override
+                public void onResponse(@NonNull Call<List<Banner>> call,
+                                       @NonNull Response<List<Banner>> response) {
+                    ArrayList<Banner> banners = (ArrayList<Banner>) response.body();
+                    bannerAdapter = new BannerAdapter(getActivity(), banners);
+                    viewPager.setAdapter(bannerAdapter);
+                    circleIndicator.setViewPager(viewPager);
+                    handler = new Handler();
+                    runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            currentItem = viewPager.getCurrentItem();
+                            currentItem++;
+                            if (currentItem >= Objects.requireNonNull(viewPager.getAdapter()).getCount()) {
+                                currentItem = 0;
+                            }
+                            viewPager.setCurrentItem(currentItem, true);
+                            handler.postDelayed(runnable, 3000);
                         }
-                        viewPager.setCurrentItem(currentItem, true);
-                        handler.postDelayed(runnable, 3000);
-                    }
-                };
+                    };
 
-                handler.postDelayed(runnable, 3000);
-            }
+                    handler.postDelayed(runnable, 3000);
+                }
 
-            @Override
-            public void onFailure(Call<List<Banner>> call, Throwable t) {
+                @Override
+                public void onFailure(@NonNull Call<List<Banner>> call, @NonNull Throwable t) {
 
-            }
-        });
+                }
+            });
+        } catch (Exception e) {
+            Log.e("Banner", e.getMessage());
+        }
     }
 }

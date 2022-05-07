@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
 import com.example.soundflows.Services.APIService;
 import com.example.soundflows.Services.Dataservice;
+import com.example.soundflows.constant.UserConstant;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -176,13 +178,13 @@ public class PlaylistActivity extends AppCompatActivity {
     private void DataIntent() {
         Intent intent = getIntent();
         if ( intent != null) {
-            if (intent.hasExtra("banner")) {
-                banner = (Banner) intent.getSerializableExtra("banner");
-                Toast.makeText(this, banner.getNameSong(), Toast.LENGTH_SHORT).show();
+            if (intent.hasExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST)) {
+                banner = (Banner) intent.getSerializableExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST);
+                Toast.makeText(this, banner.getContent(), Toast.LENGTH_SHORT).show();
             }
 
-            if (intent.hasExtra("album")) {
-                album = (Album) intent.getSerializableExtra("album");
+            if (intent.hasExtra(UserConstant.KEY_PUT_ALBUM_PLAYLIST)) {
+                album = (Album) intent.getSerializableExtra(UserConstant.KEY_PUT_ALBUM_PLAYLIST);
                 Toast.makeText(this, album.getNameAlbum(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -195,7 +197,7 @@ public class PlaylistActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PlaylistActivity.this,
                         PlaySongActivity.class);
-                intent.putExtra("songlist", arraySong);
+                intent.putExtra(UserConstant.KEY_ARRAY_SONGS, arraySong);
                 startActivity(intent);
             }
         });

@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import com.example.soundflows.Fragment.Fragment_Disc;
 import com.example.soundflows.Fragment.Fragment_Play_Playlist;
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
+import com.example.soundflows.constant.UserConstant;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -121,15 +123,15 @@ public class PlaySongActivity extends AppCompatActivity {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     imgPlay.setImageResource(R.drawable.ic_play);
-                    if (fragment_disc.objectAnimator != null) {
-                        fragment_disc.objectAnimator.pause();
-                    }
+//                    if (fragment_disc.objectAnimator != null) {
+//                        fragment_disc.objectAnimator.pause();
+//                    }
                 } else {
                     mediaPlayer.start();
                     imgPlay.setImageResource(R.drawable.ic_pause);
-                    if (fragment_disc.objectAnimator != null) {
-                        fragment_disc.objectAnimator.resume();
-                    }
+//                    if (fragment_disc.objectAnimator != null) {
+//                        fragment_disc.objectAnimator.resume();
+//                    }
                 }
             }
         });
@@ -310,13 +312,13 @@ public class PlaySongActivity extends AppCompatActivity {
         Intent intent = getIntent();
         arrayListSong.clear();
         if (intent != null) {
-            if (intent.hasExtra("song")) {
-                Song song = intent.getParcelableExtra("song");
+            if (intent.hasExtra(UserConstant.KEY_SONG)) {
+                Song song = intent.getParcelableExtra(UserConstant.KEY_SONG);
                 arrayListSong.add(song);
             }
 
-            if (intent.hasExtra("songlist")) {
-                ArrayList<Song> songArrayList = intent.getParcelableArrayListExtra("songlist");
+            if (intent.hasExtra(UserConstant.KEY_ARRAY_SONGS)) {
+                ArrayList<Song> songArrayList = intent.getParcelableArrayListExtra(UserConstant.KEY_ARRAY_SONGS);
                 arrayListSong = songArrayList;
             }
         }
@@ -341,26 +343,28 @@ public class PlaySongActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                // Dừng phát khi thoát tab playSong
                 mediaPlayer.stop();
                 arrayListSong.clear();
             }
         });
         toolbarPlaySong.setTitleTextColor(Color.WHITE);
 
-        fragment_disc = new Fragment_Disc();
-        fragment_list_song = new Fragment_Play_Playlist();
 
         adapterSong = new ViewPagerPlaylistSong(getSupportFragmentManager());
         adapterSong.AddFragment(fragment_disc);
         adapterSong.AddFragment(fragment_list_song);
         viewPagerPlaySong.setAdapter(adapterSong);
 
-        if (arrayListSong.size() > 0) {
-            getSupportActionBar().setTitle(arrayListSong.get(0).getNameSong());
-            new PlayMP3().execute(arrayListSong.get(0).getLinkSong());
-            imgPlay.setImageResource(R.drawable.ic_pause);
+        try {
+            if (arrayListSong.size() > 0) {
+                getSupportActionBar().setTitle(arrayListSong.get(0).getNameSong());
+                new PlayMP3().execute(arrayListSong.get(0).getLinkSong());
+                imgPlay.setImageResource(R.drawable.ic_pause);
+            }
+        } catch (Exception e){
+            Toast.makeText(this, "Danh sách bài hát trống", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     class PlayMP3 extends AsyncTask<String, Void, String>{
@@ -458,7 +462,7 @@ public class PlaySongActivity extends AppCompatActivity {
                             position = 0;
                         }
                         new PlayMP3().execute(arrayListSong.get(position).getLinkSong());
-                        fragment_disc.PlaySong(arrayListSong.get(position).getLinkSong());
+                        fragment_disc.PlaySong(arrayListSong.get(position).getImgSong());
                         getSupportActionBar().setTitle(arrayListSong.get(position).getNameSong());
                     }
 

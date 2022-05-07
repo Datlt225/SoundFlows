@@ -15,4 +15,6 @@ public class UserConstant {
     public static final String NOT_ALLOW_EMPTY = "";
     public static final String WRONG_CONFIRM_PASSWORD = "Mật khẩu đã nhập không trùng nhau";
     public static final String ACCOUNT_ALREADY_EXIST = "Tài khoản đã tồn tại";
+
+    public static final String EMPTY_ARRAYLIST = "Danh sách phát trống";
 }

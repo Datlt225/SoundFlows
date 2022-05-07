@@ -17,6 +17,7 @@ import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
 import com.example.soundflows.Services.APIService;
 import com.example.soundflows.Services.Dataservice;
+import com.example.soundflows.constant.UserConstant;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, PlaySongActivity.class);
-                    intent.putExtra("song", songArrayList.get(getAdapterPosition()));
+                    intent.putExtra(UserConstant.KEY_SONG, songArrayList.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }
             });

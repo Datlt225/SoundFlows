@@ -28,6 +28,7 @@ import com.example.soundflows.Services.Dataservice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +53,7 @@ public class Fragment_Searching extends Fragment {
         txtNotFound = view.findViewById(R.id.textviewNotFound);
 
         //định dạng lại activity
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("Searching");
         setHasOptionsMenu(true);
         return view;
