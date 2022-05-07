@@ -1,6 +1,7 @@
 package com.example.soundflows.Fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +42,7 @@ public class Fragment_Profile extends Fragment {
 
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("Hi " + users.getName());
+        toolbar.setTitleTextColor(Color.WHITE);
         setHasOptionsMenu(true);
         return view;
     }

@@ -1,5 +1,6 @@
 package com.example.soundflows.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,9 +53,8 @@ public class Fragment_Searching extends Fragment {
         recyclerViewSearching = view.findViewById(R.id.recyclerviewSearching);
         txtNotFound = view.findViewById(R.id.textviewNotFound);
 
-        //định dạng lại activity
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("Searching");
+        toolbar.setTitleTextColor(Color.WHITE);
         setHasOptionsMenu(true);
         return view;
     }

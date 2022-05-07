@@ -7,7 +7,9 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -232,7 +234,7 @@ public class PlaySongActivity extends AppCompatActivity {
                             position = 0;
                         }
 
-                        new PlayMP3().execute(arrayListSong.get(position).getLinkSong());
+                        playMusic(arrayListSong.get(position).getLinkSong());
                         fragment_disc.PlaySong(arrayListSong.get(position).getImgSong());
                         getSupportActionBar().setTitle(arrayListSong.get(position).getNameSong());
                         Update();
@@ -286,7 +288,7 @@ public class PlaySongActivity extends AppCompatActivity {
                             position = index;
                         }
 
-                        new PlayMP3().execute(arrayListSong.get(position).getLinkSong());
+                        playMusic(arrayListSong.get(position).getLinkSong());
                         fragment_disc.PlaySong(arrayListSong.get(position).getImgSong());
                         getSupportActionBar().setTitle(arrayListSong.get(position).getNameSong());
                         Update();
@@ -296,13 +298,10 @@ public class PlaySongActivity extends AppCompatActivity {
                 imgPre.setEnabled(false);
                 imgNext.setEnabled(false);
 
-                Handler handler1 = new Handler();
-                handler1.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        imgPre.setEnabled(true);
-                        imgNext.setEnabled(true);
-                    }
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    imgPre.setEnabled(true);
+                    imgNext.setEnabled(true);
                 }, 2000);
             }
         });
@@ -324,7 +323,6 @@ public class PlaySongActivity extends AppCompatActivity {
         }
     }
 
-
     private void init() {
         toolbarPlaySong = findViewById(R.id.toolBarPlaySong);
         txtTimeSong = findViewById(R.id.txtTimeSong);
@@ -339,16 +337,12 @@ public class PlaySongActivity extends AppCompatActivity {
         setSupportActionBar(toolbarPlaySong);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbarPlaySong.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                mediaPlayer.stop();
-                arrayListSong.clear();
-            }
+        toolbarPlaySong.setNavigationOnClickListener(v -> {
+            finish();
+            mediaPlayer.stop();
+            arrayListSong.clear();
         });
         toolbarPlaySong.setTitleTextColor(Color.WHITE);
-
 
         adapterSong = new ViewPagerPlaylistSong(getSupportFragmentManager());
         adapterSong.AddFragment(fragment_disc);
@@ -357,57 +351,40 @@ public class PlaySongActivity extends AppCompatActivity {
 
         try {
             if (arrayListSong.size() > 0) {
-                getSupportActionBar().setTitle(arrayListSong.get(0).getNameSong());
-                new PlayMP3().execute(arrayListSong.get(0).getLinkSong());
+                Song currentSong = arrayListSong.get(0);
+                getSupportActionBar().setTitle(currentSong.getNameSong());
+                playMusic(currentSong.getLinkSong());
+                fragment_disc.setSongThumbnail(currentSong.getImgSong());
                 imgPlay.setImageResource(R.drawable.ic_pause);
+                Log.d("IMG_SONG", currentSong.getImgSong());
             }
         } catch (Exception e){
             Toast.makeText(this, "Danh sách bài hát trống", Toast.LENGTH_SHORT).show();
         }
-
     }
 
-    class PlayMP3 extends AsyncTask<String, Void, String>{
-
-        /**
-         * Trả về đường link
-         * @param strings
-         * @return
-         */
-        @Override
-        protected String doInBackground(String... strings) {
-            return strings[0];
+    public void playMusic(String songUrl) {
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
 
-        /**
-         * nhập dữ về dữ liệu đường link
-         * @param song
-         */
-        @Override
-        protected void onPostExecute(String song) {
-            super.onPostExecute(song);
-            try {
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.stop();
+        mediaPlayer.reset();
+        try {
+            mediaPlayer.setDataSource(songUrl);
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    TimeSong();
+                    Update();
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mediaPlayer.stop();
-                        mediaPlayer.reset();
-                    }
-                });
-
-                mediaPlayer.setDataSource(song);
-                mediaPlayer.prepare();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            mediaPlayer.start();
-            TimeSong();
-            Update();
+                    mp.start();
+                }
+            });
+            mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -461,7 +438,7 @@ public class PlaySongActivity extends AppCompatActivity {
                         if (position > (arrayListSong.size() - 1)) {
                             position = 0;
                         }
-                        new PlayMP3().execute(arrayListSong.get(position).getLinkSong());
+                        playMusic(arrayListSong.get(position).getLinkSong());
                         fragment_disc.PlaySong(arrayListSong.get(position).getImgSong());
                         getSupportActionBar().setTitle(arrayListSong.get(position).getNameSong());
                     }
