@@ -27,7 +27,7 @@ public class Banner implements Serializable {
     private String imgSong;
 
     public String getIDAds() {
-    return iDAds;
+        return iDAds;
     }
 
     public void setIDAds(String iDAds) {

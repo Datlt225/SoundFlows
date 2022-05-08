@@ -4,6 +4,7 @@ import com.example.soundflows.Model.Album;
 import com.example.soundflows.Model.Banner;
 import com.example.soundflows.Model.LoginResponse;
 import com.example.soundflows.Model.RegisterResponse;
+import com.example.soundflows.Model.SearchingSong;
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.Model.Users;
 
@@ -11,8 +12,11 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Dataservice {
 
@@ -26,15 +30,15 @@ public interface Dataservice {
     Call<List<Song>> GetDataSong();
 
     @POST("playlist_banner")
-    Call<List<Song>> GetPlayListBanner(@Body String ID_ads);
+    Call<List<Song>> GetPlayListBanner(@Body Banner ID_ads);
 
     @POST("playlist_album")
-    Call<List<Song>> GetPlayListAlbum(@Body String ID_album);
+    Call<List<Song>> GetPlayListAlbum(@Body Album ID_album);
 
     @POST("searching")
-    Call<List<Song>> GetDataSearching(@Body String word);
+    Call<List<Song>> GetDataSearching(@Body SearchingSong word);
 
-    @POST("/login")
+    @POST("login")
     Call<LoginResponse> Login(@Body Users data);
 
     @POST("register")

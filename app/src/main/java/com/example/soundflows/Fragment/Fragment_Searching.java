@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundflows.Adapter.SearchingAdapter;
+import com.example.soundflows.Model.SearchingSong;
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
 import com.example.soundflows.Services.APIService;
@@ -42,6 +43,7 @@ public class Fragment_Searching extends Fragment {
     TextView txtNotFound;
 
     SearchingAdapter searchingAdapter;
+    Dataservice dataservice = APIService.getService();
 
     @Nullable
     @Override
@@ -86,7 +88,7 @@ public class Fragment_Searching extends Fragment {
              */
             @Override
             public boolean onQueryTextChange(String newText) {
-//                searchingWord(newText);
+                searchingWord(newText);
                 return true;
             }
         });
@@ -94,8 +96,9 @@ public class Fragment_Searching extends Fragment {
     }
 
     private void searchingWord (String word) {
-        Dataservice dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetDataSearching(word);
+        SearchingSong song = new SearchingSong();
+        song.setWord(word);
+        Call<List<Song>> callback = dataservice.GetDataSearching(song);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {

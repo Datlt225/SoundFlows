@@ -53,6 +53,8 @@ public class PlaylistActivity extends AppCompatActivity {
     ArrayList<Song> arraySong;
     PlayListAdapter playlistAdapter;
 
+    Dataservice dataservice = APIService.getService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +82,9 @@ public class PlaylistActivity extends AppCompatActivity {
      * @param idAlbum
      */
     private void GetDataAlbum(String idAlbum) {
-        Dataservice dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetPlayListAlbum(idAlbum);
+        Album album = new Album();
+        album.setIDAlbum(idAlbum);
+        Call<List<Song>> callback = dataservice.GetPlayListAlbum(album);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
@@ -105,8 +108,9 @@ public class PlaylistActivity extends AppCompatActivity {
      * @param idAds
      */
     private void GetDataBanner(String idAds) {
-        Dataservice dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetPlayListBanner(idAds);
+        Banner banner = new Banner();
+        banner.setIDAds(idAds);
+        Call<List<Song>> callback = dataservice.GetPlayListBanner(banner);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {

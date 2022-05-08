@@ -180,23 +180,23 @@ public class PlaySongActivity extends AppCompatActivity {
             }
         });
 
-        //cập nhập seekbar
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                mediaPlayer.seekTo(seekBar.getProgress());
-            }
-        });
+//        //cập nhập seekbar
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                mediaPlayer.seekTo(seekBar.getProgress());
+//            }
+//        });
 
         // Bắt sự kiện nút next
         imgNext.setOnClickListener(new View.OnClickListener() {
@@ -357,9 +357,11 @@ public class PlaySongActivity extends AppCompatActivity {
                 fragment_disc.setSongThumbnail(currentSong.getImgSong());
                 imgPlay.setImageResource(R.drawable.ic_pause);
                 Log.d("IMG_SONG", currentSong.getImgSong());
+            } else {
+                Toast.makeText(this, "Danh sách bài hát trống", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e){
-            Toast.makeText(this, "Danh sách bài hát trống", Toast.LENGTH_SHORT).show();
+            Log.e("empty", e.getMessage());
         }
     }
 
