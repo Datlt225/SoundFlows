@@ -9,11 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:background="@drawable/custom_backgound_banner" />-->
-
     <RelativeLayout
         android:id="@+id/relative1"
         android:layout_alignBottom="@id/imageBackgroundBanner"

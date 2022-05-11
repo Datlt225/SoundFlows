@@ -1,6 +1,7 @@
 package com.example.soundflows.Model;
 
 public class Users {
+    private int id;
     private String email;
     private String password;
     private String name;
@@ -17,6 +18,14 @@ public class Users {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {

@@ -64,17 +64,15 @@ public class Fragment_Banner extends Fragment {
                     viewPager.setAdapter(bannerAdapter);
                     circleIndicator.setViewPager(viewPager);
                     handler = new Handler();
-                    runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            currentItem = viewPager.getCurrentItem();
-                            currentItem++;
-                            if (currentItem >= Objects.requireNonNull(viewPager.getAdapter()).getCount()) {
-                                currentItem = 0;
-                            }
-                            viewPager.setCurrentItem(currentItem, true);
-                            handler.postDelayed(runnable, 3000);
+                    runnable = () -> {
+                        currentItem = viewPager.getCurrentItem();
+                        currentItem++;
+
+                        if (currentItem >= Objects.requireNonNull(viewPager.getAdapter()).getCount()) {
+                            currentItem = 0;
                         }
+                        viewPager.setCurrentItem(currentItem, true);
+                        handler.postDelayed(runnable, 3000);
                     };
 
                     handler.postDelayed(runnable, 3000);

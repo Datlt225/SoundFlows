@@ -21,16 +21,23 @@ import com.example.soundflows.Activity.LoginActivity;
 import com.example.soundflows.Model.Users;
 import com.example.soundflows.R;
 import com.example.soundflows.constant.UserConstant;
+import com.example.soundflows.dialog.SettingDialog;
 import com.example.soundflows.utils.AppPrefsUtils;
+import com.example.soundflows.view.CommunicateViewModel;
+import com.example.soundflows.view.ViewAnimation;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.util.Objects;
 
 public class Fragment_Profile extends Fragment {
     View view;
-    private Toolbar toolbar;
-    private Users users = new Users();
+    FloatingActionButton fabAdd, fabSetting, fabLogout;
+    boolean isRotate = false;
+    Toolbar toolbar;
+    Users mUser;
+    private CommunicateViewModel mCommunicateViewModel;
 
     @Nullable
     @Override
@@ -38,31 +45,44 @@ public class Fragment_Profile extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        toolbar = view.findViewById(R.id.toolbar_profile);
 
-//        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-//        toolbar.setTitle("Hi " + users.getName());
-//        toolbar.setTitleTextColor(Color.WHITE);
-//        setHasOptionsMenu(true);
+        // get information user from login
+        mUser = new Gson().fromJson(AppPrefsUtils.getString(UserConstant.KEY_USER_DATA), Users.class);
+
+        fabAdd = view.findViewById(R.id.fabAdd);
+        fabSetting = view.findViewById(R.id.fab_setting);
+        fabLogout = view.findViewById(R.id.fab_logout);
+
+        toolbar = view.findViewById(R.id.toolbar_profile);
+        toolbar.setTitle("Hi " + mUser.getName());
+
+        ViewAnimation.init(fabSetting);
+        ViewAnimation.init(fabLogout);
+
+        eventClickFloatingButton();
+
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.profile_view, menu);
+    private void eventClickFloatingButton() {
+        fabAdd.setOnClickListener(v -> {
+            isRotate = ViewAnimation.rotateFab(v, !isRotate);
+            if (isRotate) {
+                ViewAnimation.showIn(fabSetting);
+                ViewAnimation.showIn(fabLogout);
+            } else {
+                ViewAnimation.showOut(fabSetting);
+                ViewAnimation.showOut(fabLogout);
+            }
+        });
 
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+        fabSetting.setOnClickListener(v -> {
+            new SettingDialog().show(getChildFragmentManager(), SettingDialog.TAG);
+        });
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_logout:
-                logout();
-
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+        fabLogout.setOnClickListener(v -> {
+            logout();
+        });
     }
 
     private void logout() {

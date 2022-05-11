@@ -10,4 +10,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="mauxanh">#FF3B554A</color>
     <color name="background">#4B494C</color>
+    <color name="grey_20">#cccccc</color>
+    <color name="grey_80">#37474F</color>
 </resources>

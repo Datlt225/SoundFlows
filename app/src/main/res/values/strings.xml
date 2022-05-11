@@ -19,4 +19,9 @@
     <string name="login_with_facebook">Đăng nhập bằng Facebook</string>
     <string name="logout">Logout</string>
     <string name="confirm_logout">Do you want to logout?</string>
+    <string name="new_song">New song</string>
+    <string name="album">Album</string>
+    <string name="info">Change Information</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
 </resources>

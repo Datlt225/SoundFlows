@@ -2,6 +2,7 @@ package com.example.soundflows.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundflows.Activity.PlaySongActivity;
+import com.example.soundflows.ForegroundService.NotificationService;
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.R;
 import com.example.soundflows.Services.APIService;
@@ -71,9 +73,9 @@ public class SearchingAdapter extends RecyclerView.Adapter<SearchingAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, PlaySongActivity.class);
-                    intent.putExtra(UserConstant.KEY_SONG, songArrayList.get(getAdapterPosition()));
-                    context.startActivity(intent);
+
+                    clickStartService();
+                    clickPlaySong();
                 }
             });
 
@@ -104,6 +106,22 @@ public class SearchingAdapter extends RecyclerView.Adapter<SearchingAdapter.View
 //                    imgLiked.setEnabled(false);
 //                }
 //            });
+
+
+        }
+        private void clickStartService() {
+            Intent intent = new Intent(context, NotificationService.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(UserConstant.OBJECT_SONG, songArrayList.get(getAdapterPosition()));
+            intent.putExtras(bundle);
+
+            context.startService(intent);
+        }
+
+        private void clickPlaySong() {
+            Intent intent = new Intent(context, PlaySongActivity.class);
+            intent.putExtra(UserConstant.KEY_SONG, songArrayList.get(getAdapterPosition()));
+            context.startActivity(intent);
         }
     }
 }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -21,12 +22,16 @@ import com.example.soundflows.databinding.ActivityLoginBinding;
 import com.example.soundflows.utils.AppPrefsUtils;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
+
+    Dataservice dataservice = APIService.getService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,57 +68,75 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initEvent() {
-        EditText[] ettArr = {binding.txtUserName, binding.txtPassWord};
-        hideKeyboardOnFocusChange(ettArr);
 
         /**
          * Method handling button login
          */
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = binding.txtUserName.getText().toString().trim();
-                String password = binding.txtPassWord.getText().toString().trim();
+        binding.btnLogin.setOnClickListener(v -> {
+//            String email = binding.txtUserName.getText().toString().trim();
+//            String password = binding.txtPassWord.getText().toString().trim();
+//
+//            Users users = new Users(email, password);
+//            dataservice.Login(users).enqueue(new Callback<LoginResponse>() {
+//                @Override
+//                public void onResponse(@NonNull Call<LoginResponse> call,
+//                                       @NonNull Response<LoginResponse> response) {
+//
+//                    if (response.isSuccessful()){
+//                        AppPrefsUtils.putString(UserConstant.KEY_USER_DATA, new Gson().toJson(users));
+//
+//
+//
+//                        if (binding.activityLoginChkRemember.isChecked()) {
+//                            AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
+//                                    , new Gson().toJson("true"));
+//                        } else {
+//                            AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
+//                                    , new Gson().toJson("false"));
+//                        }
+//
+//                        Toast.makeText(getApplication(), "hi " + users.getName(), Toast.LENGTH_SHORT).show();
+//
+//                        showMainActivity();
+//
+//                    } else {
+//                        Toast.makeText(getApplication(),
+//                                UserConstant.WRONG_ACCOUNT,
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<LoginResponse> call, Throwable t) {
+//                    Log.e("login", t.getMessage());
+//                }
+//            });
 
-                Users users = new Users(email, password);
-                Dataservice dataservice = APIService.getService();
-                dataservice.Login(users).enqueue(new Callback<LoginResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<LoginResponse> call,
-                                           @NonNull Response<LoginResponse> response) {
+            Users mUser = new Users();
+            if (binding.txtUserName.getText() != null)
+                mUser.setEmail(binding.txtUserName.getText().toString().trim());
+            if (binding.txtPassWord.getText() != null)
+                mUser.setPassword(binding.txtPassWord.getText().toString().trim());
 
-                        if (response.isSuccessful()){
-                            AppPrefsUtils.putString(UserConstant.KEY_USER_DATA,
-                                    new Gson().toJson(users));
-
-                            if (binding.activityLoginChkRemember.isChecked()) {
-                                AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
-                                        , new Gson().toJson("true"));
-                            } else {
-                                AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
-                                        , new Gson().toJson("false"));
-                            }
-
-                            showMainActivity();
-
-                            Toast.makeText(getApplication(),
-                                    response.body().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplication(),
-                                    UserConstant.NOT_ALLOW_EMPTY,
-                                    Toast.LENGTH_SHORT).show();
-                        }
+            dataservice.Login(mUser).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful()) {
+                        loginUI(response.body(), mUser);
                     }
-
-                    @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Toast.makeText(getApplication(),
-                                t.getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                    else {
+                        Toast.makeText(LoginActivity.this,
+                                UserConstant.WRONG_ACCOUNT,
+                                Toast.LENGTH_SHORT)
+                                .show();
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+                }
+            });
         });
 
         /**
@@ -129,15 +152,22 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void hideKeyboardOnFocusChange(EditText[] ettArr) {
-        for (EditText et : ettArr) {
-            et.setOnFocusChangeListener((v, hasFocus) -> {
-                if (!hasFocus) {
-                    InputMethodManager imm =
-                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            });
+    private void loginUI(LoginResponse body, Users mUser) {
+        mUser.setName(body.getName());
+
+        AppPrefsUtils.putString(UserConstant.KEY_USER_DATA, new Gson().toJson(mUser));
+
+        if (binding.activityLoginChkRemember.isChecked()) {
+            AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
+                    , new Gson().toJson("true"));
+        } else {
+            AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
+                    , new Gson().toJson("false"));
         }
+
+        Toast.makeText(getApplication(), "hi " + mUser.getName() +
+                " email: " + mUser.getEmail() + " pass: " + mUser.getPassword(), Toast.LENGTH_SHORT).show();
+
+        showMainActivity();
     }
 }

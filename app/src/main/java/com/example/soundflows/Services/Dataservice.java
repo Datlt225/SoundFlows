@@ -43,4 +43,7 @@ public interface Dataservice {
 
     @POST("register")
     Call<RegisterResponse> Register(@Body Users user);
+
+    @POST("change_info")
+    Call<RegisterResponse> ChangInformation(@Body Users users);
 }

@@ -2,6 +2,7 @@ package com.example.soundflows.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.soundflows.Activity.PlaylistActivity;
 import com.example.soundflows.Model.Banner;
 import com.example.soundflows.R;
 import com.example.soundflows.constant.UserConstant;
+import com.example.soundflows.databinding.RowBannerBinding;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -47,23 +49,20 @@ public class BannerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.row_banner, null);
 
-        ImageView imgbackgroundBanner = view.findViewById(R.id.imageBackgroundBanner);
-        ImageView imgsongbanner = view.findViewById(R.id.imageviewBanner);
+        ImageView ivBackgroundBanner = view.findViewById(R.id.imageBackgroundBanner);
+        ImageView ivSongBanner = view.findViewById(R.id.imageviewBanner);
         TextView txtTitleBanner = view.findViewById(R.id.textviewTitleBanner);
         TextView txtContent = view.findViewById(R.id.textviewContent);
 
-        Picasso.get().load(arrayListBanner.get(position).getImgAds()).into(imgbackgroundBanner);
-        Picasso.get().load(arrayListBanner.get(position).getImgSong()).into(imgsongbanner);
+        Picasso.get().load(arrayListBanner.get(position).getImgAds()).into(ivBackgroundBanner);
+        Picasso.get().load(arrayListBanner.get(position).getImgSong()).into(ivSongBanner);
         txtTitleBanner.setText(arrayListBanner.get(position).getNameSong());
         txtContent.setText(arrayListBanner.get(position).getContent());
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, PlaylistActivity.class);
-                intent.putExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST, arrayListBanner.get(position));
-                context.startActivity(intent);
-            }
+        view.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PlaylistActivity.class);
+            intent.putExtra(UserConstant.KEY_PUT_BANNER_PLAYLIST, arrayListBanner.get(position));
+            context.startActivity(intent);
         });
         container.addView(view);
         return view;

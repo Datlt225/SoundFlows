@@ -49,8 +49,8 @@ public class Fragment_Song extends Fragment {
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 ArrayList<Song> songArrayList = (ArrayList<Song>) response.body();
 
-                for (Song songcc : songArrayList)
-                    System.out.println("Link ne" + songcc.getLinkSong());
+//                for (Song songcc : songArrayList)
+//                    System.out.println("Link ne" + songcc.getLinkSong());
 
                 songAdapter = new SongAdapter(getActivity(), songArrayList);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
