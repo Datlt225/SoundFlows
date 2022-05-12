@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundflows.Activity.LoginActivity;
+import com.example.soundflows.Activity.PlaySongActivity;
+import com.example.soundflows.Activity.PlaylistActivity;
 import com.example.soundflows.Adapter.FavoriteSongAdapter;
 import com.example.soundflows.Adapter.SongAdapter;
 import com.example.soundflows.Model.LikeSong;
@@ -54,6 +57,7 @@ public class Fragment_Profile extends Fragment {
     FavoriteSongAdapter favoriteSongAdapter;
     Dataservice dataservice = APIService.getService();
     ArrayList<Song> songArrayList;
+    ImageButton imgPlayAllSong;
 
     @Nullable
     @Override
@@ -68,6 +72,7 @@ public class Fragment_Profile extends Fragment {
         fabAdd = view.findViewById(R.id.fabAdd);
         fabSetting = view.findViewById(R.id.fab_setting);
         fabLogout = view.findViewById(R.id.fab_logout);
+        imgPlayAllSong = view.findViewById(R.id.img_play_all_fa_song);
 
         toolbar = view.findViewById(R.id.toolbar_profile);
         toolbar.setTitle("Hi " + mUser.getName());
@@ -133,6 +138,16 @@ public class Fragment_Profile extends Fragment {
 
         fabLogout.setOnClickListener(v -> {
             logout();
+        });
+
+        imgPlayAllSong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),
+                        PlaySongActivity.class);
+                intent.putExtra(UserConstant.KEY_ARRAY_SONGS, songArrayList);
+                startActivity(intent);
+            }
         });
     }
 

@@ -1,6 +1,7 @@
 package com.example.soundflows.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.soundflows.Activity.PlaySongActivity;
 import com.example.soundflows.Model.Song;
 import com.example.soundflows.Model.Users;
 import com.example.soundflows.R;
@@ -53,23 +55,6 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
         return 0;
     }
 
-    /**
-     * This method updates the data list and notify the changes
-     * @param favoriteSongResponse
-     */
-    public void setCateAdapter(ArrayList<Song> favoriteSongResponse) {
-        songArrayList = favoriteSongResponse;
-        notifyDataSetChanged();
-    }
-
-    /**
-     * return date list
-     * @return
-     */
-    public ArrayList<Song> getFavoriteSongAdapter() {
-        return songArrayList;
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private RowFavoriteSongBinding binding;
@@ -86,6 +71,16 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
             binding.tvNameFavoriteSong.setText(nameSong);
             binding.tvSingerFavoriteSong.setText(singer);
             binding.tvIndexFavoriteSong.setText(getAdapterPosition() + 1 + "");
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, PlaySongActivity.class);
+                    intent.putExtra(UserConstant.KEY_SONG, songArrayList.get(getAdapterPosition()));
+
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
