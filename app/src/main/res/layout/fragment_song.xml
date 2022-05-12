@@ -15,7 +15,7 @@
             android:padding="10dp"
             android:text="@string/new_song"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_song"

@@ -10,8 +10,7 @@ public class UserConstant {
     public static final String KEY_REMEMBER_USER = "isRememberUser";
     public static final String KEY_GMAIL = "gmail";
     public static final String KEY_PASS = "pass";
-    public static final String WRONG_ACCOUNT = "tài khoản hoặc mật khẩu không tồn tại";
-    public static final String WRONG_CONFIRM_PASSWORD = "Mật khẩu đã nhập không trùng nhau";
+    public static final String WRONG_ACCOUNT = "User not found";
     public static final String ACCOUNT_ALREADY_EXIST = "Tài khoản đã tồn tại";
 
     public static final String EMPTY_ARRAYLIST = "Danh sách phát trống";
@@ -25,4 +24,6 @@ public class UserConstant {
     public static final int BTN_CLEAR = 3;
 
     public static final String UPDATE_SUCCESSFUL = "Cập nhật thành công";
+    public static final String UNLIKE = "Unliked";
+    public static final String LIKE = "Liked";
 }

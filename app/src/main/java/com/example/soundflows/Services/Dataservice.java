@@ -2,6 +2,7 @@ package com.example.soundflows.Services;
 
 import com.example.soundflows.Model.Album;
 import com.example.soundflows.Model.Banner;
+import com.example.soundflows.Model.LikeSong;
 import com.example.soundflows.Model.LoginResponse;
 import com.example.soundflows.Model.RegisterResponse;
 import com.example.soundflows.Model.SearchingSong;
@@ -46,4 +47,13 @@ public interface Dataservice {
 
     @POST("change_info")
     Call<RegisterResponse> ChangInformation(@Body Users users);
+
+    @POST("fa_song")
+    Call<List<Song>> GetDataFavoriteSong(@Body Users email);
+
+    @POST("like_song")
+    Call<RegisterResponse> UpdateLiked(@Body LikeSong data);
+
+    @POST("remove_like")
+    Call<RegisterResponse> UnLikeSong(@Body LikeSong data);
 }

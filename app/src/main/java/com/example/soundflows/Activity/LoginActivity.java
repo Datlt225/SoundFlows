@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.example.soundflows.Model.LoginResponse;
 import com.example.soundflows.Model.Users;
+import com.example.soundflows.R;
 import com.example.soundflows.Services.APIService;
 import com.example.soundflows.Services.Dataservice;
+import com.example.soundflows.constant.LoginConstant;
 import com.example.soundflows.constant.UserConstant;
 import com.example.soundflows.databinding.ActivityLoginBinding;
 import com.example.soundflows.utils.AppPrefsUtils;
@@ -73,70 +75,34 @@ public class LoginActivity extends AppCompatActivity {
          * Method handling button login
          */
         binding.btnLogin.setOnClickListener(v -> {
-//            String email = binding.txtUserName.getText().toString().trim();
-//            String password = binding.txtPassWord.getText().toString().trim();
-//
-//            Users users = new Users(email, password);
-//            dataservice.Login(users).enqueue(new Callback<LoginResponse>() {
-//                @Override
-//                public void onResponse(@NonNull Call<LoginResponse> call,
-//                                       @NonNull Response<LoginResponse> response) {
-//
-//                    if (response.isSuccessful()){
-//                        AppPrefsUtils.putString(UserConstant.KEY_USER_DATA, new Gson().toJson(users));
-//
-//
-//
-//                        if (binding.activityLoginChkRemember.isChecked()) {
-//                            AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
-//                                    , new Gson().toJson("true"));
-//                        } else {
-//                            AppPrefsUtils.putString(UserConstant.KEY_REMEMBER_USER
-//                                    , new Gson().toJson("false"));
-//                        }
-//
-//                        Toast.makeText(getApplication(), "hi " + users.getName(), Toast.LENGTH_SHORT).show();
-//
-//                        showMainActivity();
-//
-//                    } else {
-//                        Toast.makeText(getApplication(),
-//                                UserConstant.WRONG_ACCOUNT,
-//                                Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<LoginResponse> call, Throwable t) {
-//                    Log.e("login", t.getMessage());
-//                }
-//            });
-
             Users mUser = new Users();
             if (binding.txtUserName.getText() != null)
                 mUser.setEmail(binding.txtUserName.getText().toString().trim());
             if (binding.txtPassWord.getText() != null)
                 mUser.setPassword(binding.txtPassWord.getText().toString().trim());
 
-            dataservice.Login(mUser).enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if (response.isSuccessful()) {
-                        loginUI(response.body(), mUser);
+            if (validateInput(mUser)) {
+                dataservice.Login(mUser).enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        if (response.isSuccessful()) {
+                            loginUI(response.body(), mUser);
+                        }
+                        else {
+                            Toast.makeText(LoginActivity.this,
+                                    UserConstant.WRONG_ACCOUNT,
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                        }
                     }
-                    else {
-                        Toast.makeText(LoginActivity.this,
-                                UserConstant.WRONG_ACCOUNT,
-                                Toast.LENGTH_SHORT)
-                                .show();
+
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+
                     }
-                }
+                });
+            }
 
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-
-                }
-            });
         });
 
         /**
@@ -152,6 +118,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+
+    private boolean validateInput(Users mUser) {
+        if (!mUser.getEmail().matches(LoginConstant.emailPattern)) {
+            binding.txtUserName.setError(getResources().getString(R.string.et_email_invalid));
+            binding.txtUserName.requestFocus();
+            return false;
+        }
+        if (TextUtils.isEmpty(mUser.getPassword())) {
+            Toast.makeText(this, getResources().getString(R.string.et_pwd_invalid), Toast.LENGTH_LONG).show();
+            binding.txtPassWord.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
     private void loginUI(LoginResponse body, Users mUser) {
         mUser.setName(body.getName());
 
@@ -165,8 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                     , new Gson().toJson("false"));
         }
 
-        Toast.makeText(getApplication(), "hi " + mUser.getName() +
-                " email: " + mUser.getEmail() + " pass: " + mUser.getPassword(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplication(), "Welcome " + mUser.getName() , Toast.LENGTH_SHORT).show();
 
         showMainActivity();
     }

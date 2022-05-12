@@ -45,7 +45,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/iconlove"
-        android:id="@+id/imgviewSearchingLiked"
+        android:id="@+id/img_searching_liked"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 </RelativeLayout>

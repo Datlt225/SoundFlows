@@ -32,7 +32,7 @@ public class Song implements Parcelable {
     @Expose
     private String singer;
 
-    protected Song(Parcel in) {
+    public Song(Parcel in) {
         iDAlbum = in.readString();
         iDCategory = in.readString();
         iDPlaylist = in.readString();

@@ -3,6 +3,7 @@ package com.example.soundflows.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundflows.Activity.PlaySongActivity;
 import com.example.soundflows.ForegroundService.NotificationService;
+import com.example.soundflows.Model.LikeSong;
+import com.example.soundflows.Model.RegisterResponse;
 import com.example.soundflows.Model.Song;
+import com.example.soundflows.Model.Users;
 import com.example.soundflows.R;
 import com.example.soundflows.Services.APIService;
 import com.example.soundflows.Services.Dataservice;
 import com.example.soundflows.constant.UserConstant;
+import com.example.soundflows.utils.AppPrefsUtils;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,6 +38,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
 
     Context context;
     ArrayList<Song> songArrayList;
+    Dataservice dataservice= APIService.getService();
+    Users mUsers;
+    boolean isLiked = false;
 
     public SongAdapter(Context context, ArrayList<Song> songArrayList) {
         this.context = context;
@@ -42,7 +51,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
+
+
+
         View view = inflater.inflate(R.layout.row_song, parent, false);
+        mUsers = new Gson().fromJson(AppPrefsUtils.getString(UserConstant.KEY_USER_DATA), Users.class);
         return new ViewHolder(view);
     }
 
@@ -52,7 +65,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
         holder.txtSinger.setText(song.getSinger());
         holder.txtNameSong.setText(song.getNameSong());
         Picasso.get().load(song.getImgSong()).into(holder.imgSong);
-//        Picasso.get().load(song.getLiked()).into(holder.imgLiked);
+
     }
 
     @Override
@@ -73,42 +86,49 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
             imgSong = itemView.findViewById(R.id.imageviewSong);
             imgLiked = itemView.findViewById(R.id.imageLove);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    clickStartService();
-                    clickPlaySong();
-                }
+            itemView.setOnClickListener(v -> {
+                clickStartService();
+                clickPlaySong();
             });
 
-//            imgLiked.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    imgLiked.setImageResource(R.drawable.iconloved);
-//                    Dataservice dataservice= APIService.getService();
-//                    Call<String> callback = dataservice.UpdateLiked("1",
-//                            songArrayList.get(getAdapterPosition()).getIDSong());
-//                    callback.enqueue(new Callback<String>() {
-//                        @Override
-//                        public void onResponse(Call<String> call, Response<String> response) {
-//                            String result = response.body();
-//                            if (result.equals("succes")) {
-//                                Toast.makeText(context, "Da thich", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                Toast.makeText(context, "Loi~", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<String> call, Throwable t) {
-//
-//                        }
-//                    });
-//
-//                    imgLiked.setEnabled(false);
-//                }
-//            });
+            imgLiked.setOnClickListener(v -> {
+                LikeSong likeSong = new LikeSong();
+                likeSong.setEmail(mUsers.getEmail());
+                likeSong.setIdSong(songArrayList.get(getAdapterPosition()).getIDSong());
+
+                Call<RegisterResponse> callback = dataservice.UpdateLiked(likeSong);
+                callback.enqueue(new Callback<RegisterResponse>() {
+                    @Override
+                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(context, UserConstant.LIKE, Toast.LENGTH_SHORT).show();
+                            imgLiked.setImageResource(R.drawable.iconloved);
+                            isLiked = true;
+                        } else {
+                            dataservice.UnLikeSong(likeSong).enqueue(new Callback<RegisterResponse>() {
+                                @Override
+                                public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(context, UserConstant.UNLIKE, Toast.LENGTH_SHORT).show();
+                                        imgLiked.setImageResource(R.drawable.iconlove);
+                                        isLiked = false;
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<RegisterResponse> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                        Log.e("Like", t.getMessage());
+                    }
+                });
+            });
         }
         private void clickPlaySong() {
             Intent intent = new Intent(context, PlaySongActivity.class);
@@ -126,8 +146,4 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
             context.startService(intent);
         }
     }
-
-
-
-
 }

@@ -5,15 +5,15 @@
     <string name="name_song">Name song</string>
     <string name="singer">Singer</string>
     <string name="enter_your_email">Enter your email</string>
-    <string name="login">Đăng nhập</string>
-    <string name="register">Đăng ký</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
     <string name="enter_your_pass">Enter your password</string>
     <string name="confirm_your_password">Confirm your password</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="enter_email">Enter your email</string>
     <string name="enter_password">Enter your password</string>
     <string name="chk_remember_me_txt">Remember me</string>
-    <string name="registration">Đăng ký</string>
+    <string name="registration">Register</string>
     <string name="or">Hoặc đăng nhập bằng</string>
     <string name="login_with_google">Đăng nhập bằng Google</string>
     <string name="login_with_facebook">Đăng nhập bằng Facebook</string>
@@ -24,4 +24,12 @@
     <string name="info">Change Information</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
+    <string name="favorite_song">Favorite Song</string>
+    <string name="et_email_invalid">Invalid email</string>
+    <string name="et_pwd_invalid">Invalid password</string>
+    <string name="et_pass_empty">Enter your password</string>
+    <string name="et_lName_empty">Enter your name</string>
+    <string name="et_pwd_confirm_invalid">Invalid password confirm</string>
+    <string name="user_created">User created</string>
+    <string name="et_email_empty">Enter your email</string>
 </resources>
